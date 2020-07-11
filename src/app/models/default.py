@@ -1,17 +1,9 @@
 from copy import copy
 
-from behaviors.behaviors import Timestamped
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import F
 from django.db.models.functions import Coalesce
-
-__all__ = [
-    'models',
-    'DefaultManager',
-    'DefaultModel',
-    'TimestampedModel',
-]
 
 
 class DefaultQuerySet(models.QuerySet):
@@ -81,17 +73,6 @@ class DefaultModel(models.Model):
     def get_contenttype(cls) -> ContentType:
         return ContentType.objects.get_for_model(cls)
 
-    @classmethod
-    def has_field(cls, field) -> bool:
-        """
-        Shortcut to check if model has particular field
-        """
-        try:
-            cls._meta.get_field(field)
-            return True
-        except models.FieldDoesNotExist:
-            return False
-
     def update_from_kwargs(self, **kwargs):
         """
         A shortcut method to update model instance from the kwargs.
@@ -120,12 +101,3 @@ class DefaultModel(models.Model):
         Get a unique within the app model label
         """
         return cls._meta.label_lower.split('.')[-1]
-
-
-class TimestampedModel(DefaultModel, Timestamped):
-    """
-    Default app model that has `created` and `updated` attributes.
-    Currently based on https://github.com/audiolion/django-behaviors
-    """
-    class Meta:
-        abstract = True

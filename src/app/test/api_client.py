@@ -8,7 +8,6 @@ from rest_framework.test import APIClient
 
 
 class DRFClient(APIClient):
-
     def __init__(self, user=None, god_mode=True, anon=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

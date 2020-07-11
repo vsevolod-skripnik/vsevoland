@@ -18,7 +18,7 @@ SITE_ROOT = root()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Disable built-in ./manage.py test command in favor of pytest
-TEST_RUNNER = 'app.test.disable_test_command_runner.DisableTestCommandRunner'
+TEST_RUNNER = 'app.test.disable_managepy_test.DisableTestCommandRunner'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -37,8 +37,7 @@ ALLOWED_HOSTS = ['*']  # host validation is not necessary in 2020
 
 INSTALLED_APPS = [
     'app',
-    'users',
-    'sepulkas',
+    'pages',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -64,7 +63,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'app.urls'
-AUTH_USER_MODEL = 'users.User'
 
 TEMPLATES = [
     {
@@ -114,17 +112,17 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': [
-        'app.renderers.AppJSONRenderer',
+        'app.api.renderers.AppJSONRenderer',
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
-    'DEFAULT_PAGINATION_CLASS': 'app.pagination.AppPagination',
+    'DEFAULT_PAGINATION_CLASS': 'app.api.pagination.AppPagination',
     'PAGE_SIZE': env('PAGE_SIZE', cast=int, default=20),
 }
 
