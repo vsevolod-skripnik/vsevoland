@@ -74,14 +74,6 @@ jobs:
             . venv/bin/activate
             cd src && py.test -n2 -x
 
-      - run:
-          name: Run auditlog test suit
-          command: |
-            . venv/bin/activate
-            cd src && py.test -x -m auditlog
-          environment:
-            AUDITLOG: On
-
 
   deploy:
     <<: *defaults
