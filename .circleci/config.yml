@@ -1,14 +1,22 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@1.0.1
 
 defaults: &defaults
   docker:
     - image: circleci/python:3.7-stretch
       environment:
-        - DATABASE_URL=sqlite:////tmp/prj.sqlite
+        - DATABASE_URL=postgres://root:passw0rd@postgres:5432/circle_test
         - CELERY_BACKEND=redis://redis:6379
 
     - image: circleci/redis:4.0.14-alpine3.10
       name: redis
+    - image: circleci/postgres:11.8-ram
+      name: postgres
+      environment:
+        - POSTGRES_USER: root
+        - POSTGRES_PASSWORD: passw0rd
+        - POSTGRES_DB: circle_test
 
 jobs:
   build:
@@ -61,9 +69,38 @@ jobs:
           command: sudo apt-get update && sudo apt-get --no-install-recommends install -y locales-all gettext
 
       - run:
+          name: Run main test suit
           command: |
             . venv/bin/activate
-            cd src && py.test -x
+            cd src && py.test -n2 -x
+
+      - run:
+          name: Run auditlog test suit
+          command: |
+            . venv/bin/activate
+            cd src && py.test -x -m auditlog
+          environment:
+            AUDITLOG: On
+
+
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install deploy tooling
+          command: |
+            export D_RELEASE=0.5.1
+            wget -O - https://raw.githubusercontent.com/f213/d/master/install.sh|sh
+
+      - run:
+          name: Update image
+          command: |
+            ./d add-host-key --force
+            ./d update-image circle@42.42.42.42 vsevoland vsevolod-skripnik/vsevoland-backend:${CIRCLE_SHA1}
+
+
 
 workflows:
   version: 2
@@ -73,3 +110,25 @@ workflows:
       - test:
           requires:
             - build
+
+      - docker/publish:
+          image: vsevolod-skripnik/vsevoland-backend
+          cache_from: vsevolod-skripnik/vsevoland-backend
+          tag: ${CIRCLE_SHA1},latest
+          lint-dockerfile: true
+          after_checkout:
+            - run:
+                name: Set default env for building
+                command: mv src/app/.env.ci src/app/.env
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+
+      - deploy:
+          requires:
+            - docker/publish
+          filters:
+            branches:
+              only: master
