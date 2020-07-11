@@ -1,5 +1,5 @@
 FROM python:3.7-slim-stretch
-LABEL maintainer="fedor@borshev.com"
+LABEL maintainer="vsevolod_skripnik@protonmail.com"
 
 LABEL com.datadoghq.ad.logs='[{"source": "uwsgi", "service": "django"}]'
 
