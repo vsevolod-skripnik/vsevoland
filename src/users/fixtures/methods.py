@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AnonymousUser
 
-from app.fixtures import register
+from app.testing import register
 
 
 @register
