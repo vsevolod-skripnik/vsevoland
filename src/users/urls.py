@@ -1,12 +1,12 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
-from pages.api import viewsets as pages
+from users.api import viewsets
 
 router = SimpleRouter()
-router.register('', pages.PageViewSet, basename='page')
+router.register('', viewsets.UserViewSet)
 
-app_name = 'pages'
+app_name = 'users'
 urlpatterns = [
     path('', include(router.urls)),
 ]

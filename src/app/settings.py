@@ -9,7 +9,7 @@ import os
 import environ
 
 root = environ.Path(__file__) - 2        # three folder back (/a/b/c/ - 3 = /)
-env = environ.Env(DEBUG=(bool, False))  # set default values and casting
+env = environ.Env(DEBUG=(bool, False))   # set default values and casting
 environ.Env.read_env()                   # reading .env file
 SITE_ROOT = root()
 
@@ -37,7 +37,7 @@ ALLOWED_HOSTS = ['*']  # host validation is not necessary in 2020
 
 INSTALLED_APPS = [
     'app',
-    'pages',
+    'users',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -157,3 +157,8 @@ HEALTH_CHECKS_ERROR_CODE = 503
 HEALTH_CHECKS = {
     'db': 'django_healthchecks.contrib.check_database',
 }
+
+
+# Authentication
+
+AUTH_USER_MODEL = 'users.User'
