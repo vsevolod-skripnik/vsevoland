@@ -1,8 +1,8 @@
 import pytest
 
-from app.test.api_client import DRFClient
+from app.testing import ApiClient
 
 
 @pytest.fixture
-def api():
-    return DRFClient(anon=True)
+def as_anon():
+    return ApiClient()
