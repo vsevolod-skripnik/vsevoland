@@ -6,7 +6,7 @@ from users.api import viewsets
 router = SimpleRouter()
 router.register('', viewsets.UserViewSet)
 
-app_name = 'users'
+default_name = 'users'
 urlpatterns = [
     path('', include(router.urls)),
 ]

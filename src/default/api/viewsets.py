@@ -4,8 +4,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ReadOnlyModelViewSet as _ReadOnlyModelViewSet
 
 __all__ = [
-    'AppViewSet',
-    'ReadOnlyAppViewSet',
+    'DefaultViewSet',
+    'ReadOnlyDefaultViewSet',
 ]
 
 
@@ -13,7 +13,7 @@ class MultiSerializerMixin:
     def get_serializer_class(self, action=None):
         """
         Look for serializer class in self.serializer_action_classes, which
-        should be a dict mapping action name (key) to serializer class (value),
+        should be a dict mdefaulting action name (key) to serializer class (value),
         i.e.:
         class MyViewSet(MultiSerializerViewSetMixin, ViewSet):
             serializer_class = MyDefaultSerializer
@@ -37,13 +37,13 @@ class MultiSerializerMixin:
             return super().get_serializer_class()
 
 
-class ReadOnlyAppViewSet(MultiSerializerMixin, _ReadOnlyModelViewSet):
+class ReadOnlyDefaultViewSet(MultiSerializerMixin, _ReadOnlyModelViewSet):
     pass
 
 
-class AppViewSet(MultiSerializerMixin, ModelViewSet):
+class DefaultViewSet(MultiSerializerMixin, ModelViewSet):
     """
-    This AppViewSet uses MultiSerializerMixin's serializer_action_classes
+    This DefaultViewSet uses MultiSerializerMixin's serializer_action_classes
     to create and update instances with corresponding create and update serializers,
     but always serialize response with serializer_class detail serializer.
 
@@ -74,7 +74,7 @@ class AppViewSet(MultiSerializerMixin, ModelViewSet):
         instance = self.perform_update(update_serializer)  # Here we grab our updated instance
 
         if getattr(instance, '_prefetched_objects_cache', None):  # ↓ DRF comment
-            # If 'prefetch_related' has been applied to a queryset, we need to
+            # If 'prefetch_related' has been defaultlied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 

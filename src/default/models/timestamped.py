@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from app.models.default import DefaultModel
+from default.models.default import DefaultModel
 
 
 class Timestamped(models.Model):
@@ -30,7 +30,7 @@ class Timestamped(models.Model):
 
 class TimestampedModel(DefaultModel, Timestamped):
     """
-    Default app model that has `created_at` and `updated_at` attributes.
+    Default default model that has `created_at` and `updated_at` attributes.
     """
     class Meta:
         abstract = True

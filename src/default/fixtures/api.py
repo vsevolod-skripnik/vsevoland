@@ -1,6 +1,6 @@
 import pytest
 
-from app.testing import ApiClient
+from default.testing import ApiClient
 
 
 @pytest.fixture

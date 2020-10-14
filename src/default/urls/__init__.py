@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 api = [
-    path('v1/', include('app.urls.v1', namespace='v1')),
+    path('v1/', include('default.urls.v1', namespace='v1')),
 ]
 
 urlpatterns = [

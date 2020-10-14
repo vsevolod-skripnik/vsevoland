@@ -98,6 +98,6 @@ class DefaultModel(models.Model):
     @classmethod
     def get_label(cls) -> str:
         """
-        Get a unique within the app model label
+        Get a unique within the default model label
         """
         return cls._meta.label_lower.split('.')[-1]

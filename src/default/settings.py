@@ -1,7 +1,7 @@
 #
 # This file was generated using http://github.com/f213/django starter template.
 #
-# If your project growth to more then 3 apps, consider http://github.com/sobolevn/django-split-settings
+# If your project growth to more then 3 defaults, consider http://github.com/sobolevn/django-split-settings
 # for organizing django settings into multiple files
 #
 import os
@@ -18,7 +18,7 @@ SITE_ROOT = root()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Disable built-in ./manage.py test command in favor of pytest
-TEST_RUNNER = 'app.testing.runner.DisableTestCommandRunner'
+TEST_RUNNER = 'default.testing.runner.DisableTestCommandRunner'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['*']  # host validation is not necessary in 2020
 # Application definition
 
 INSTALLED_APPS = [
-    'app',
+    'default',
     'users',
 
     'rest_framework',
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'app.urls'
+ROOT_URLCONF = 'default.urls'
 
 TEMPLATES = [
     {
@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'app.wsgi.application'
+WSGI_APPLICATION = 'default.wsgi.application'
 
 
 # Database
@@ -119,10 +119,10 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': [
-        'app.api.renderers.AppJSONRenderer',
+        'default.api.renderers.DefaultJSONRenderer',
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
-    'DEFAULT_PAGINATION_CLASS': 'app.api.pagination.AppPagination',
+    'DEFAULT_PAGINATION_CLASS': 'default.api.pagination.DefaultPagination',
     'PAGE_SIZE': env('PAGE_SIZE', cast=int, default=20),
 }
 
