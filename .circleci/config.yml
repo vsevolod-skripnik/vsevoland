@@ -43,7 +43,7 @@ jobs:
             - "venv"
 
       - run:
-          command: mv src/app/.env.ci src/app/.env
+          command: mv src/default/.env.ci src/default/.env
 
       - run:
           name: Run linters
@@ -111,7 +111,7 @@ workflows:
           after_checkout:
             - run:
                 name: Set default env for building
-                command: mv src/app/.env.ci src/app/.env
+                command: mv src/default/.env.ci src/default/.env
           requires:
             - test
           filters:
