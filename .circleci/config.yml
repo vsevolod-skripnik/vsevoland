@@ -80,6 +80,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+
       - run:
           name: Install deploy tooling
           command: |
@@ -90,7 +91,7 @@ jobs:
           name: Update image
           command: |
             ./d add-host-key --force
-            ./d update-image circle@42.42.42.42 vsevoland vsevolod-skripnik/vsevoland-backend:${CIRCLE_SHA1}
+            ./d update-image circle@159.89.108.92 vsevoland vsevolod-skripnik/vsevoland-backend:${CIRCLE_SHA1}
 
 
 
