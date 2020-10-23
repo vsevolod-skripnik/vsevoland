@@ -94,7 +94,6 @@ jobs:
             ./d update-image circle@159.89.108.92 vsevoland vsevolod-skripnik/vsevoland-backend:${CIRCLE_SHA1}
 
 
-
 workflows:
   version: 2
   continuous-delivery:
@@ -105,8 +104,8 @@ workflows:
             - build
 
       - docker/publish:
-          image: vsevolodskripnik/vsevoland-backend
-          cache_from: vsevolodskripnik/vsevoland-backend
+          image: vsevolod-skripnik/vsevoland-backend
+          cache_from: vsevolod-skripnik/vsevoland-backend
           tag: ${CIRCLE_SHA1},latest
           lint-dockerfile: true
           after_checkout:
