@@ -104,8 +104,8 @@ workflows:
             - build
 
       - docker/publish:
-          image: vsevolod-skripnik/vsevoland-backend
-          cache_from: vsevolod-skripnik/vsevoland-backend
+          image: vsevolodskripnik/vsevoland-backend
+          cache_from: vsevolodskripnik/vsevoland-backend
           tag: ${CIRCLE_SHA1},latest
           lint-dockerfile: true
           after_checkout:
