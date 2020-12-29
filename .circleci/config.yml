@@ -91,7 +91,7 @@ jobs:
           name: Update image
           command: |
             ./d add-host-key --force
-            ./d update-image circle@159.89.108.92 vsevoland vsevolodskripnik/vsevoland-backend:${CIRCLE_SHA1}
+            ./d update-image circle@46.101.96.9 vsevoland vsevolodskripnik/vsevoland-backend:${CIRCLE_SHA1}
 
 
 workflows:
