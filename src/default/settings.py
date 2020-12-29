@@ -133,8 +133,8 @@ REST_FRAMEWORK = {
 STATIC_URL = '/static/'
 STATIC_ROOT = env('STATIC_ROOT', cast=str, default='static')
 
-if not DEBUG and not CI:
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+# if not DEBUG and not CI:
+#     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 
 # Sentry
