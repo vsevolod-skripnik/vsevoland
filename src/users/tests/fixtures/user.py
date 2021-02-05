@@ -10,9 +10,3 @@ def anon(factory):
 def arthur(factory):
     defaults = {'username': 'arthur'}
     return factory.user(**defaults)
-
-
-@pytest.fixture
-def lancelot(factory):
-    defaults = {'username': 'lancelot'}
-    return factory.user(**defaults)
